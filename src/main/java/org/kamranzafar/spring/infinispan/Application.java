@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiTemplate;
 
 import javax.naming.NamingException;
+import javax.annotation.Resource;
 
 /**
  * Created by kamran on 05/08/16.
@@ -39,6 +40,27 @@ public class Application extends SpringBootServletInitializer {
 
     @Bean
     public Cache defaultCache() throws NamingException {
-        return (Cache) ((DefaultCacheContainer) new JndiTemplate().lookup(infinispanJndiUrl)).getCache();
+        //DefaultCacheContainer dcc = ((DefaultCacheContainer) new JndiTemplate().lookup(infinispanJndiUrl));
+        //log.info("Configu"+dcc.getDefaultCacheConfiguration());
+        //log.info("cacheName" + dcc.getDefaultCacheName());
+        //log.info("cacheExists" + dcc.cacheExists("default"));
+        //log.info("getCache" + dcc.getCache());
+        //return (Cache) ((DefaultCacheContainer) new JndiTemplate().lookup(infinispanJndiUrl)).getCache("dist", false);
+        return this.cache;
     }
+    
+    
+    DefaultCacheContainer defaultCacheContainer = null;
+    @Resource(lookup = "java:jboss/infinispan/container/mycache")
+    void setCacheContainer(DefaultCacheContainer defaultCacheContainer) {
+        this.defaultCacheContainer = defaultCacheContainer;
+        //this.setCache(defaultCacheContainer.getCache());
+    }
+    
+    Cache cache = null;
+    @Resource(lookup = "java:jboss/infinispan/container/mycache/dist")
+    void setCache(Cache cache) {
+        this.cache = cache;
+    }
+    
 }

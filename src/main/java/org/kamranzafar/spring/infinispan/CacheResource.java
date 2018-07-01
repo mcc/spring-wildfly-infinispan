@@ -16,6 +16,7 @@ public class CacheResource {
     @Autowired
     private Cache defaultCache;
 
+   
     @RequestMapping("{key}")
     public String get(@PathVariable("key") String key) {
         return defaultCache.get(key).toString();

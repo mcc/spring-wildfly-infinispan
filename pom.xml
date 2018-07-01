@@ -98,6 +98,6 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <infinispan.jndi.url>java:jboss/infinispan/container/mycache</infinispan.jndi.url>
+        <infinispan.jndi.url>java:jboss/infinispan/container/mycache/dist</infinispan.jndi.url>
     </properties>
 </project>
